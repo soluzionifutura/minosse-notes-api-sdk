@@ -161,12 +161,12 @@ const _checkSetup = (): void => {
 }
 
 /**
-Say hello
+Creates a note
 */
-export type AxiosSayHelloSuccessResponse = (AxiosResponse<SayHello200ResponseSchema> & { status: 200 })
-export type AxiosSayHelloErrorResponse = ((AxiosResponse<SayHello400ResponseSchema> & { status: 400 }) | (AxiosResponse<SayHello405ResponseSchema> & { status: 405 }) | (AxiosResponse<SayHello429ResponseSchema> & { status: 429 }) | (AxiosResponse<SayHello500ResponseSchema> & { status: 500 })) & { path: "/v1/hello/sayHello" }
-export type AxiosSayHelloResponse = AxiosSayHelloSuccessResponse | AxiosSayHelloErrorResponse
-export async function sayHello(data: SayHelloRequestSchema, config?: AxiosRequestConfig): Promise<AxiosSayHelloResponse> {
+export type AxiosCreateNoteSuccessResponse = (AxiosResponse<CreateNote200ResponseSchema> & { status: 200 })
+export type AxiosCreateNoteErrorResponse = ((AxiosResponse<CreateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/createNote" }
+export type AxiosCreateNoteResponse = AxiosCreateNoteSuccessResponse | AxiosCreateNoteErrorResponse
+export async function createNote(data: CreateNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateNoteResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -195,14 +195,225 @@ export async function sayHello(data: SayHelloRequestSchema, config?: AxiosReques
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/hello/sayHello"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/notes/createNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
-    return res as AxiosSayHelloSuccessResponse
+    return res as AxiosCreateNoteSuccessResponse
   } catch (e) {
     const { response: res } = e as AxiosError
     if (res) {
       _throwOnUnexpectedResponse(handledResponses, res)
-      return res as AxiosSayHelloErrorResponse
+      return res as AxiosCreateNoteErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+delete note
+*/
+export type AxiosDeleteNoteSuccessResponse = (AxiosResponse<DeleteNote200ResponseSchema> & { status: 200 })
+export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/deleteNote" }
+export type AxiosDeleteNoteResponse = AxiosDeleteNoteSuccessResponse | AxiosDeleteNoteErrorResponse
+export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteNoteResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/notes/deleteNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosDeleteNoteSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosDeleteNoteErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+if control value matches, returns the note
+*/
+export type AxiosGetNoteSuccessResponse = (AxiosResponse<GetNote200ResponseSchema> & { status: 200 })
+export type AxiosGetNoteErrorResponse = ((AxiosResponse<GetNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/getNote" }
+export type AxiosGetNoteResponse = AxiosGetNoteSuccessResponse | AxiosGetNoteErrorResponse
+export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetNoteResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/notes/getNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetNoteSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetNoteErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+list notes
+*/
+export type AxiosListNotesSuccessResponse = (AxiosResponse<ListNotes200ResponseSchema> & { status: 200 })
+export type AxiosListNotesErrorResponse = ((AxiosResponse<ListNotes400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListNotes405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListNotes429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListNotes500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/listNotes" }
+export type AxiosListNotesResponse = AxiosListNotesSuccessResponse | AxiosListNotesErrorResponse
+export async function listNotes(data: ListNotesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListNotesResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/notes/listNotes"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosListNotesSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosListNotesErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+update a note
+*/
+export type AxiosUpdateNoteSuccessResponse = (AxiosResponse<UpdateNote200ResponseSchema> & { status: 200 })
+export type AxiosUpdateNoteErrorResponse = ((AxiosResponse<UpdateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/updateNote" }
+export type AxiosUpdateNoteResponse = AxiosUpdateNoteSuccessResponse | AxiosUpdateNoteErrorResponse
+export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateNoteResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": [
+        "UNAUTHORIZED"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/notes/updateNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosUpdateNoteSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosUpdateNoteErrorResponse
     } else {
       throw e
     }
@@ -299,18 +510,161 @@ export type Id = string
 
 export type NullableId = string | null
 
-export type SayHello200ResponseSchema = {
-  data: string
+/**
+ * timestamp of creation with 3 extra random digits
+ */
+export type NoteId = number
+
+export type NoteHandler = {
+  id: NoteId
+  scope?: string
 }
 
-export type SayHello400ResponseSchema = ValidationErrorResponseSchema
+export type NoteMetadata = {
+  title?: string
+  author?: string
+  expireTimestamp: NullableTimestamp
+  creationTimestamp?: NullableTimestamp
+  salt: string
+  maxReads: number | null
+  encrypted: boolean
+  editable?: boolean
+}
 
-export type SayHello405ResponseSchema = MethodNotAllowedErrorResponseSchema
+export type NoteVersion = {
+  encryptedText: string
+  timestamp?: NullableTimestamp
+}
 
-export type SayHello429ResponseSchema = ThrottlingErrorResponseSchema
+export type Note = {
+  handler: NoteHandler
+  metadata: NoteMetadata
+  controlValue?: string | null
+  versions: NoteVersion[]
+}
 
-export type SayHello500ResponseSchema = UnexpectedErrorResponseSchema
+export type NoteResponseSchema = {
+  data: {
+    note: Note
+    status: string
+  }
+}
 
-export type SayHelloRequestSchema = {
-  name: string
+export type CreateNote200ResponseSchema = {
+  data: {
+    note: Note
+    status: string
+    [k: string]: unknown
+  }
+}
+
+export type CreateNote400ResponseSchema = ValidationErrorResponseSchema
+
+export type CreateNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type CreateNote429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type CreateNote500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type CreateNoteRequestSchema = {
+  note: {
+    scope?: string
+    metadata: NoteMetadata
+    controlValue?: string | null
+    encryptedText: string
+  }
+}
+
+export type DeleteNote200ResponseSchema = OkSchema
+
+export type DeleteNote400ResponseSchema = ValidationErrorResponseSchema
+
+export type DeleteNote401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type DeleteNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type DeleteNote429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type DeleteNote500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type DeleteNoteRequestSchema = {
+  handler: NoteHandler
+  controlValue?: string
+}
+
+export type GetNote200ResponseSchema = {
+  data?: {
+    note?:
+      | Note
+      | {
+          handler: NoteHandler
+          metadata: NoteMetadata
+        }
+    status: string
+  }
+  [k: string]: unknown
+}
+
+export type GetNote400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetNote401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetNote429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetNote500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetNoteRequestSchema = {
+  handler: NoteHandler
+  controlValue?: string
+  confirmRead: boolean
+}
+
+export type ListNotes200ResponseSchema = {
+  data: {
+    notes: (
+      | Note
+      | {
+          metadata: NoteMetadata
+          handler: NoteHandler
+        }
+    )[]
+    status: string
+  }
+}
+
+export type ListNotes400ResponseSchema = ValidationErrorResponseSchema
+
+export type ListNotes405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type ListNotes429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type ListNotes500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type ListNotesRequestSchema = {
+  scope: string
+}
+
+export type UpdateNote200ResponseSchema = {
+  data: {
+    note: Note
+    status: string
+  }
+}
+
+export type UpdateNote400ResponseSchema = ValidationErrorResponseSchema
+
+export type UpdateNote401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type UpdateNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type UpdateNote429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type UpdateNote500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type UpdateNoteRequestSchema = {
+  handler: NoteHandler
+  controlValue?: string
+  newVersion: NoteVersion
 }
