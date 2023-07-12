@@ -1,0 +1,39 @@
+{
+  "name": "@soluzionifutura/minosse-notes-api-sdk",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "tsdx build && npm run build:package",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build && npm run build:package",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "build:package": "echo '{\"name\":\"@soluzionifutura/minosse-notes-api-sdk\",\"version\":\"0.1.0\",\"license\":\"MIT\",\"main\":\"./index.js\",\"typings\":\"./index.d.ts\",\"engines\":{\"node\":\">=10\"},\"author\":\"sf-ts-sdk-gen\",\"module\":\"./@soluzionifutura/minosse-notes-api-sdk.esm.js\",\"sideEffects\":false}' > dist/package.json"
+  },
+  "author": "sf-ts-sdk-gen",
+  "module": "dist/@soluzionifutura/minosse-notes-api-sdk.esm.js",
+  "sideEffects": false,
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.2.4",
+    "@types/fs-extra": "^11.0.1",
+    "husky": "^8.0.3",
+    "openapi-types": "^12.1.0",
+    "size-limit": "^8.2.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.5.0",
+    "typescript": "^3.9.10",
+    "axios": "1.3.6"
+  },
+  "dependencies": {
+    "deepmerge": "4.3.0"
+  }
+}
