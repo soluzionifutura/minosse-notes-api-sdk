@@ -262,7 +262,7 @@ export async function createNote(data: CreateNoteRequestSchema, config?: AxiosRe
 delete note
 */
 export type AxiosDeleteNoteSuccessResponse = (AxiosResponse<DeleteNote200ResponseSchema> & { status: 200 })
-export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/deleteNote" }
+export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/deleteNote" }
 export type AxiosDeleteNoteResponse = AxiosDeleteNoteSuccessResponse | AxiosDeleteNoteErrorResponse
 export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteNoteResponse> {
   _checkSetup()
@@ -275,6 +275,9 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
       "code": [
         "VALIDATION_ERROR"
       ]
+    },
+    "401": {
+      "code": null
     },
     "405": {
       "code": [
@@ -457,6 +460,58 @@ export async function getMetadata(data: GetMetadataRequestSchema, config?: Axios
   }
 }
 
+/**
+update a note
+*/
+export type AxiosUpdateNoteSuccessResponse = (AxiosResponse<UpdateNote200ResponseSchema> & { status: 200 })
+export type AxiosUpdateNoteErrorResponse = ((AxiosResponse<UpdateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/updateNote" }
+export type AxiosUpdateNoteResponse = AxiosUpdateNoteSuccessResponse | AxiosUpdateNoteErrorResponse
+export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateNoteResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "401": {
+      "code": null
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/notes/updateNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosUpdateNoteSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosUpdateNoteErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -540,6 +595,12 @@ export type OkSchema = {
   }
 }
 
+export type UnauthorizedError = {
+  data: {
+    status: string
+  }
+}
+
 /**
  * UUID
  */
@@ -573,8 +634,12 @@ export type NoteMetadata = {
 export type Note = {
   handler: NoteHandler
   metadata: NoteMetadata
-  encryptedText: string
-  controlValue: string | null
+  controlValue?: string | null
+  versions: {
+    encryptedText: string
+    timestamp?: Timestamp
+    [k: string]: unknown
+  }[]
   [k: string]: unknown
 }
 
@@ -612,6 +677,8 @@ export type DeleteNote200ResponseSchema = OkSchema
 
 export type DeleteNote400ResponseSchema = ValidationErrorResponseSchema
 
+export type DeleteNote401ResponseSchema = UnauthorizedError
+
 export type DeleteNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type DeleteNote429ResponseSchema = ThrottlingErrorResponseSchema
@@ -620,6 +687,7 @@ export type DeleteNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteNoteRequestSchema = {
   handler: NoteHandler
+  controlValue?: string
 }
 
 export type GetNote200ResponseSchema = {
@@ -632,11 +700,7 @@ export type GetNote200ResponseSchema = {
 
 export type GetNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetNote401ResponseSchema = {
-  data: {
-    status: string
-  }
-}
+export type GetNote401ResponseSchema = UnauthorizedError
 
 export type GetNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -687,4 +751,23 @@ export type GetMetadata500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetMetadataRequestSchema = {
   handler: NoteHandler
+}
+
+export type UpdateNote200ResponseSchema = OkSchema
+
+export type UpdateNote400ResponseSchema = ValidationErrorResponseSchema
+
+export type UpdateNote401ResponseSchema = UnauthorizedError
+
+export type UpdateNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type UpdateNote429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type UpdateNote500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type UpdateNoteRequestSchema = {
+  handler: NoteHandler
+  controlValue?: string
+  updatedEncryptedText: string
+  timestamp?: Timestamp
 }
