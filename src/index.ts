@@ -164,7 +164,7 @@ const _checkSetup = (): void => {
 Creates a note
 */
 export type AxiosCreateNoteSuccessResponse = (AxiosResponse<CreateNote200ResponseSchema> & { status: 200 })
-export type AxiosCreateNoteErrorResponse = ((AxiosResponse<CreateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/createNote" }
+export type AxiosCreateNoteErrorResponse = ((AxiosResponse<CreateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<CreateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<CreateNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<CreateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<CreateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/createNote" }
 export type AxiosCreateNoteResponse = AxiosCreateNoteSuccessResponse | AxiosCreateNoteErrorResponse
 export async function createNote(data: CreateNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosCreateNoteResponse> {
   _checkSetup()
@@ -200,7 +200,7 @@ export async function createNote(data: CreateNoteRequestSchema, config?: AxiosRe
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/notes/createNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/createNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosCreateNoteSuccessResponse
   } catch (e) {
@@ -218,7 +218,7 @@ export async function createNote(data: CreateNoteRequestSchema, config?: AxiosRe
 delete note
 */
 export type AxiosDeleteNoteSuccessResponse = (AxiosResponse<DeleteNote200ResponseSchema> & { status: 200 })
-export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/deleteNote" }
+export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/deleteNote" }
 export type AxiosDeleteNoteResponse = AxiosDeleteNoteSuccessResponse | AxiosDeleteNoteErrorResponse
 export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteNoteResponse> {
   _checkSetup()
@@ -259,7 +259,7 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/notes/deleteNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/deleteNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosDeleteNoteSuccessResponse
   } catch (e) {
@@ -277,7 +277,7 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
 if control value matches, returns the note
 */
 export type AxiosGetNoteSuccessResponse = (AxiosResponse<GetNote200ResponseSchema> & { status: 200 })
-export type AxiosGetNoteErrorResponse = ((AxiosResponse<GetNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/getNote" }
+export type AxiosGetNoteErrorResponse = ((AxiosResponse<GetNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNote500ResponseSchema> & { status: 500 })) & { path: "/v1/getNote" }
 export type AxiosGetNoteResponse = AxiosGetNoteSuccessResponse | AxiosGetNoteErrorResponse
 export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetNoteResponse> {
   _checkSetup()
@@ -318,7 +318,7 @@ export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestC
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/notes/getNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/getNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosGetNoteSuccessResponse
   } catch (e) {
@@ -336,7 +336,7 @@ export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestC
 list notes
 */
 export type AxiosListNotesSuccessResponse = (AxiosResponse<ListNotes200ResponseSchema> & { status: 200 })
-export type AxiosListNotesErrorResponse = ((AxiosResponse<ListNotes400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListNotes405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListNotes415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListNotes429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListNotes500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/listNotes" }
+export type AxiosListNotesErrorResponse = ((AxiosResponse<ListNotes400ResponseSchema> & { status: 400 }) | (AxiosResponse<ListNotes405ResponseSchema> & { status: 405 }) | (AxiosResponse<ListNotes415ResponseSchema> & { status: 415 }) | (AxiosResponse<ListNotes429ResponseSchema> & { status: 429 }) | (AxiosResponse<ListNotes500ResponseSchema> & { status: 500 })) & { path: "/v1/listNotes" }
 export type AxiosListNotesResponse = AxiosListNotesSuccessResponse | AxiosListNotesErrorResponse
 export async function listNotes(data: ListNotesRequestSchema, config?: AxiosRequestConfig): Promise<AxiosListNotesResponse> {
   _checkSetup()
@@ -372,7 +372,7 @@ export async function listNotes(data: ListNotesRequestSchema, config?: AxiosRequ
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/notes/listNotes"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/listNotes"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosListNotesSuccessResponse
   } catch (e) {
@@ -390,7 +390,7 @@ export async function listNotes(data: ListNotesRequestSchema, config?: AxiosRequ
 update a note
 */
 export type AxiosUpdateNoteSuccessResponse = (AxiosResponse<UpdateNote200ResponseSchema> & { status: 200 })
-export type AxiosUpdateNoteErrorResponse = ((AxiosResponse<UpdateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/notes/updateNote" }
+export type AxiosUpdateNoteErrorResponse = ((AxiosResponse<UpdateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/updateNote" }
 export type AxiosUpdateNoteResponse = AxiosUpdateNoteSuccessResponse | AxiosUpdateNoteErrorResponse
 export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateNoteResponse> {
   _checkSetup()
@@ -431,7 +431,7 @@ export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRe
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/notes/updateNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/updateNote"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosUpdateNoteSuccessResponse
   } catch (e) {
@@ -544,36 +544,55 @@ export type Id = string
 export type NullableId = string | null
 
 /**
- * timestamp of creation with 3 extra random digits
+ * Numeric note id
  */
 export type NoteId = number
 
+/**
+ * Contains optional scope and id
+ */
 export type NoteHandler = {
   id: NoteId
   scope?: string
 }
 
-export type NoteMetadata =
-  | {
-      expireTimestamp: NullableTimestamp
-      creationTimestamp?: NullableTimestamp
-      salt: string
-      encrypted: boolean
-      burnAfterRead: true
-      editable: false
-    }
-  | {
-      expireTimestamp: NullableTimestamp
-      creationTimestamp?: NullableTimestamp
-      salt: string
-      encrypted: boolean
-      burnAfterRead: false
-      editable: boolean
-    }
+/**
+ * Random string for hashing encryption key
+ */
+export type NoteSalt = string
+
+/**
+ * Detected programming language in note
+ */
+export type NoteLanguage = "txt" | "py" | "js"
+
+export type BurnAfterReadNoteMetadata = {
+  expireTimestamp: NullableTimestamp
+  creationTimestamp: NullableTimestamp
+  salt: NoteSalt
+  encrypted: boolean
+  burnAfterRead: true
+  editable?: false
+}
+
+export type NotBurnAfterReadNoteMetadata = {
+  expireTimestamp: NullableTimestamp
+  creationTimestamp?: NullableTimestamp
+  salt: NoteSalt
+  encrypted: boolean
+  burnAfterRead: false
+  editable: boolean
+}
+
+/**
+ * Additional informations about note
+ */
+export type NoteMetadata = BurnAfterReadNoteMetadata | NotBurnAfterReadNoteMetadata
 
 export type NoteVersion = {
   encryptedText: string
-  timestamp?: NullableTimestamp
+  creationTimestamp?: NullableTimestamp
+  language?: NoteLanguage
 }
 
 export type Note = {
@@ -716,7 +735,7 @@ export type UpdateNoteRequestSchema =
       handler: NoteHandler
       controlValue?: string
       newVersion: NoteVersion
-      burnAfterRead?: true
+      burnAfterRead: true
       expireTimestamp?: NullableTimestamp
       editable?: false
     }
