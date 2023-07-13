@@ -711,11 +711,20 @@ export type UpdateNote429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type UpdateNote500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type UpdateNoteRequestSchema = {
-  handler: NoteHandler
-  controlValue?: string
-  newVersion: NoteVersion
-  burnAfterRead?: boolean
-  expireTimestamp?: NullableTimestamp
-  editable?: boolean
-}
+export type UpdateNoteRequestSchema =
+  | {
+      handler: NoteHandler
+      controlValue?: string
+      newVersion: NoteVersion
+      burnAfterRead?: true
+      expireTimestamp?: NullableTimestamp
+      editable?: false
+    }
+  | {
+      handler: NoteHandler
+      controlValue?: string
+      newVersion: NoteVersion
+      burnAfterRead?: false
+      expireTimestamp?: NullableTimestamp
+      editable?: boolean
+    }
