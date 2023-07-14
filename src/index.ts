@@ -274,7 +274,7 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
 }
 
 /**
-if control value matches, returns the note
+If control value matches, returns the note, otherwise returns metadata and handler
 */
 export type AxiosGetNoteSuccessResponse = (AxiosResponse<GetNote200ResponseSchema> & { status: 200 })
 export type AxiosGetNoteErrorResponse = ((AxiosResponse<GetNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNote500ResponseSchema> & { status: 500 })) & { path: "/v1/getNote" }
@@ -562,22 +562,42 @@ export type NoteHandler = {
 export type NoteSalt = string
 
 /**
+ * note content encrypted with encryption key
+ */
+export type NoteEncryptedText = string
+
+export type NoteControlValue = string | null
+
+/**
+ * Category of note
+ */
+export type NoteScope = string
+
+/**
  * Detected programming language in note
  */
 export type NoteLanguage = "txt" | "py" | "js"
 
+export type NoteVersion = {
+  encryptedText: NoteEncryptedText
+  creationTimestamp?: NullableTimestamp
+  language?: NoteLanguage
+}
+
 export type BurnAfterReadNoteMetadata = {
-  expireTimestamp: NullableTimestamp
-  creationTimestamp: NullableTimestamp
+  expireTimestamp: Timestamp
+  creationTimestamp: Timestamp
+  lastUpdateTimestamp: Timestamp
   salt: NoteSalt
   encrypted: boolean
   burnAfterRead: true
-  editable?: false
+  editable: false
 }
 
 export type NotBurnAfterReadNoteMetadata = {
-  expireTimestamp: NullableTimestamp
-  creationTimestamp?: NullableTimestamp
+  expireTimestamp: Timestamp
+  creationTimestamp: Timestamp
+  lastUpdateTimestamp: Timestamp
   salt: NoteSalt
   encrypted: boolean
   burnAfterRead: false
@@ -589,17 +609,52 @@ export type NotBurnAfterReadNoteMetadata = {
  */
 export type NoteMetadata = BurnAfterReadNoteMetadata | NotBurnAfterReadNoteMetadata
 
-export type NoteVersion = {
-  encryptedText: string
-  creationTimestamp?: NullableTimestamp
-  language?: NoteLanguage
+export type NoteWithoutText = {
+  handler: NoteHandler
+  metadata: NoteMetadata
 }
 
 export type Note = {
   handler: NoteHandler
   metadata: NoteMetadata
-  controlValue?: string | null
+  controlValue?: NoteControlValue
   versions: NoteVersion[]
+}
+
+export type BurnAfterReadCreateNoteMetadata = {
+  expireTimestamp: Timestamp
+  creationTimestamp: Timestamp
+  salt: NoteSalt
+  encrypted: boolean
+  burnAfterRead: true
+  editable: false
+}
+
+export type NotBurnAfterReadCreateNoteMetadata = {
+  expireTimestamp: Timestamp
+  creationTimestamp: Timestamp
+  salt: NoteSalt
+  encrypted: boolean
+  burnAfterRead: false
+  editable: boolean
+}
+
+export type BurnAfterReadNoteUpdateData = {
+  handler: NoteHandler
+  controlValue?: NoteControlValue
+  newVersion: NoteVersion
+  creationTimestamp: Timestamp
+  burnAfterRead: true
+  editable: false
+}
+
+export type NotBurnAfterReadNoteUpdateData = {
+  handler: NoteHandler
+  controlValue?: NoteControlValue
+  newVersion: NoteVersion
+  creationTimestamp: Timestamp
+  burnAfterRead: false
+  editable: boolean
 }
 
 export type NoteResponseSchema = {
@@ -627,12 +682,11 @@ export type CreateNote429ResponseSchema = ThrottlingErrorResponseSchema
 export type CreateNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateNoteRequestSchema = {
-  note: {
-    scope?: string
-    metadata: NoteMetadata
-    controlValue?: string | null
-    encryptedText: string
-  }
+  encryptedText: NoteEncryptedText
+  scope?: NoteScope
+  controlValue?: NoteControlValue
+  language?: NoteLanguage
+  metadata: BurnAfterReadCreateNoteMetadata | NotBurnAfterReadCreateNoteMetadata
 }
 
 export type DeleteNote200ResponseSchema = OkSchema
@@ -651,17 +705,12 @@ export type DeleteNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteNoteRequestSchema = {
   handler: NoteHandler
-  controlValue?: string
+  controlValue?: NoteControlValue
 }
 
 export type GetNote200ResponseSchema = {
   data: {
-    note:
-      | Note
-      | {
-          handler: NoteHandler
-          metadata: NoteMetadata
-        }
+    note: Note | NoteWithoutText
     status: string
   }
 }
@@ -680,19 +729,13 @@ export type GetNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetNoteRequestSchema = {
   handler: NoteHandler
-  controlValue?: string
+  controlValue?: NoteControlValue
   confirmRead: boolean
 }
 
 export type ListNotes200ResponseSchema = {
   data: {
-    notes: (
-      | Note
-      | {
-          metadata: NoteMetadata
-          handler: NoteHandler
-        }
-    )[]
+    notes: (Note | NoteWithoutText)[]
     status: string
   }
 }
@@ -708,7 +751,7 @@ export type ListNotes429ResponseSchema = ThrottlingErrorResponseSchema
 export type ListNotes500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type ListNotesRequestSchema = {
-  scope: string
+  scope: NoteScope
 }
 
 export type UpdateNote200ResponseSchema = {
@@ -730,20 +773,4 @@ export type UpdateNote429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type UpdateNote500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type UpdateNoteRequestSchema =
-  | {
-      handler: NoteHandler
-      controlValue?: string
-      newVersion: NoteVersion
-      burnAfterRead: true
-      expireTimestamp?: NullableTimestamp
-      editable?: false
-    }
-  | {
-      handler: NoteHandler
-      controlValue?: string
-      newVersion: NoteVersion
-      burnAfterRead?: false
-      expireTimestamp?: NullableTimestamp
-      editable?: boolean
-    }
+export type UpdateNoteRequestSchema = BurnAfterReadNoteUpdateData | NotBurnAfterReadNoteUpdateData
