@@ -524,6 +524,8 @@ export type NullableTimestamp = number | null
 
 export type Email = string
 
+export type NullableEmail = string | null
+
 export type Week = number
 
 export type Year = number
@@ -589,6 +591,7 @@ export type BurnAfterReadNoteMetadata = {
   creationTimestamp: Timestamp
   lastUpdateTimestamp: Timestamp
   salt: NoteSalt
+  email: NullableEmail
   encrypted: boolean
   burnAfterRead: true
   editable: false
@@ -599,6 +602,7 @@ export type NotBurnAfterReadNoteMetadata = {
   creationTimestamp: Timestamp
   lastUpdateTimestamp: Timestamp
   salt: NoteSalt
+  email: NullableEmail
   encrypted: boolean
   burnAfterRead: false
   editable: boolean
@@ -625,6 +629,7 @@ export type BurnAfterReadCreateNoteMetadata = {
   expireTimestamp: Timestamp
   creationTimestamp: Timestamp
   salt: NoteSalt
+  email: NullableEmail
   encrypted: boolean
   burnAfterRead: true
   editable: false
@@ -634,6 +639,7 @@ export type NotBurnAfterReadCreateNoteMetadata = {
   expireTimestamp: Timestamp
   creationTimestamp: Timestamp
   salt: NoteSalt
+  email: NullableEmail
   encrypted: boolean
   burnAfterRead: false
   editable: boolean
