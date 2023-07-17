@@ -218,7 +218,7 @@ export async function createNote(data: CreateNoteRequestSchema, config?: AxiosRe
 delete note
 */
 export type AxiosDeleteNoteSuccessResponse = (AxiosResponse<DeleteNote200ResponseSchema> & { status: 200 })
-export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/deleteNote" }
+export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/deleteNote" }
 export type AxiosDeleteNoteResponse = AxiosDeleteNoteSuccessResponse | AxiosDeleteNoteErrorResponse
 export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteNoteResponse> {
   _checkSetup()
@@ -236,6 +236,9 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
       "code": [
         "UNAUTHORIZED"
       ]
+    },
+    "404": {
+      "code": null
     },
     "405": {
       "code": [
@@ -277,7 +280,7 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
 If control value matches, returns the note, otherwise returns metadata and handler
 */
 export type AxiosGetNoteSuccessResponse = (AxiosResponse<GetNote200ResponseSchema> & { status: 200 })
-export type AxiosGetNoteErrorResponse = ((AxiosResponse<GetNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNote500ResponseSchema> & { status: 500 })) & { path: "/v1/getNote" }
+export type AxiosGetNoteErrorResponse = ((AxiosResponse<GetNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNote500ResponseSchema> & { status: 500 })) & { path: "/v1/getNote" }
 export type AxiosGetNoteResponse = AxiosGetNoteSuccessResponse | AxiosGetNoteErrorResponse
 export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetNoteResponse> {
   _checkSetup()
@@ -295,6 +298,9 @@ export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestC
       "code": [
         "UNAUTHORIZED"
       ]
+    },
+    "404": {
+      "code": null
     },
     "405": {
       "code": [
@@ -390,7 +396,7 @@ export async function listNotes(data: ListNotesRequestSchema, config?: AxiosRequ
 update a note
 */
 export type AxiosUpdateNoteSuccessResponse = (AxiosResponse<UpdateNote200ResponseSchema> & { status: 200 })
-export type AxiosUpdateNoteErrorResponse = ((AxiosResponse<UpdateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/updateNote" }
+export type AxiosUpdateNoteErrorResponse = ((AxiosResponse<UpdateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<UpdateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/updateNote" }
 export type AxiosUpdateNoteResponse = AxiosUpdateNoteSuccessResponse | AxiosUpdateNoteErrorResponse
 export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateNoteResponse> {
   _checkSetup()
@@ -408,6 +414,9 @@ export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRe
       "code": [
         "UNAUTHORIZED"
       ]
+    },
+    "404": {
+      "code": null
     },
     "405": {
       "code": [
@@ -545,10 +554,16 @@ export type Id = string
 
 export type NullableId = string | null
 
+export type NotFindErrorResponseSchema = {
+  data: {
+    status: string
+  }
+}
+
 /**
  * Numeric note id
  */
-export type NoteId = number
+export type NoteId = string
 
 /**
  * Contains optional scope and id
@@ -578,12 +593,18 @@ export type NoteScope = string
 /**
  * Detected programming language in note
  */
-export type NoteLanguage = "txt" | "py" | "js"
+export type NoteLanguage = string
 
-export type NoteVersion = {
+export type NoteVersionRequest = {
   encryptedText: NoteEncryptedText
-  creationTimestamp?: NullableTimestamp
+  creationTimestamp: NullableTimestamp
   language?: NoteLanguage
+}
+
+export type NoteVersionResponse = {
+  encryptedText: NoteEncryptedText
+  creationTimestamp: NullableTimestamp
+  language: NoteLanguage
 }
 
 export type BurnAfterReadNoteMetadata = {
@@ -622,7 +643,7 @@ export type Note = {
   handler: NoteHandler
   metadata: NoteMetadata
   controlValue?: NoteControlValue
-  versions: NoteVersion[]
+  versions: NoteVersionResponse[]
 }
 
 export type BurnAfterReadCreateNoteMetadata = {
@@ -648,7 +669,7 @@ export type NotBurnAfterReadCreateNoteMetadata = {
 export type BurnAfterReadNoteUpdateData = {
   handler: NoteHandler
   controlValue?: NoteControlValue
-  newVersion: NoteVersion
+  newVersion: NoteVersionRequest
   creationTimestamp: Timestamp
   burnAfterRead: true
   editable: false
@@ -657,7 +678,7 @@ export type BurnAfterReadNoteUpdateData = {
 export type NotBurnAfterReadNoteUpdateData = {
   handler: NoteHandler
   controlValue?: NoteControlValue
-  newVersion: NoteVersion
+  newVersion: NoteVersionRequest
   creationTimestamp: Timestamp
   burnAfterRead: false
   editable: boolean
@@ -701,6 +722,8 @@ export type DeleteNote400ResponseSchema = ValidationErrorResponseSchema
 
 export type DeleteNote401ResponseSchema = UnauthorizedErrorResponseSchema
 
+export type DeleteNote404ResponseSchema = NotFindErrorResponseSchema
+
 export type DeleteNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
 export type DeleteNote415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
@@ -724,6 +747,8 @@ export type GetNote200ResponseSchema = {
 export type GetNote400ResponseSchema = ValidationErrorResponseSchema
 
 export type GetNote401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type GetNote404ResponseSchema = NotFindErrorResponseSchema
 
 export type GetNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -770,6 +795,8 @@ export type UpdateNote200ResponseSchema = {
 export type UpdateNote400ResponseSchema = ValidationErrorResponseSchema
 
 export type UpdateNote401ResponseSchema = UnauthorizedErrorResponseSchema
+
+export type UpdateNote404ResponseSchema = NotFindErrorResponseSchema
 
 export type UpdateNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
