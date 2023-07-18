@@ -687,14 +687,12 @@ export type NotBurnAfterReadNoteUpdateData = {
 export type NoteResponseSchema = {
   data: {
     note: Note
-    status: string
   }
 }
 
 export type CreateNote200ResponseSchema = {
   data: {
     note: Note
-    status: string
   }
 }
 
@@ -740,7 +738,6 @@ export type DeleteNoteRequestSchema = {
 export type GetNote200ResponseSchema = {
   data: {
     note: Note | NoteWithoutText
-    status: string
   }
 }
 
@@ -767,7 +764,6 @@ export type GetNoteRequestSchema = {
 export type ListNotes200ResponseSchema = {
   data: {
     notes: (Note | NoteWithoutText)[]
-    status: string
   }
 }
 
@@ -788,7 +784,6 @@ export type ListNotesRequestSchema = {
 export type UpdateNote200ResponseSchema = {
   data: {
     note: Note
-    status: string
   }
 }
 
