@@ -602,7 +602,6 @@ export type NoteLanguage = string
 
 export type NoteVersionRequest = {
   encryptedText: NoteEncryptedText
-  creationTimestamp: NullableTimestamp
   language?: NoteLanguage
 }
 
@@ -673,7 +672,6 @@ export type BurnAfterReadNoteUpdateData = {
   handler: NoteHandler
   controlValue?: NoteControlValue
   newVersion: NoteVersionRequest
-  creationTimestamp: Timestamp
   burnAfterRead: true
   editable: false
 }
@@ -682,8 +680,6 @@ export type NotBurnAfterReadNoteUpdateData = {
   handler: NoteHandler
   controlValue?: NoteControlValue
   newVersion: NoteVersionRequest
-  creationTimestamp: Timestamp
-  burnAfterRead: false
   editable: boolean
 }
 
