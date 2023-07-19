@@ -570,12 +570,14 @@ export type NotFindErrorResponseSchema = {
  */
 export type NoteId = string
 
+export type NoteScope = string | null
+
 /**
  * Contains optional scope and id
  */
 export type NoteHandler = {
   id: NoteId
-  scope?: string
+  scope: NoteScope
 }
 
 /**
@@ -589,11 +591,6 @@ export type NoteSalt = string
 export type NoteEncryptedText = string
 
 export type NoteControlValue = string | null
-
-/**
- * Category of note
- */
-export type NoteScope = string
 
 /**
  * Detected programming language in note
@@ -646,7 +643,7 @@ export type NoteWithoutText = {
 export type Note = {
   handler: NoteHandler
   metadata: NoteMetadata
-  controlValue?: NoteControlValue
+  controlValue: NoteControlValue
   versions: NoteVersionResponse[]
 }
 
@@ -670,7 +667,7 @@ export type NotBurnAfterReadCreateNoteMetadata = {
 
 export type BurnAfterReadNoteUpdateData = {
   handler: NoteHandler
-  controlValue?: NoteControlValue
+  controlValue: NoteControlValue
   newVersion: NoteVersionRequest
   burnAfterRead: true
   editable: false
@@ -678,8 +675,9 @@ export type BurnAfterReadNoteUpdateData = {
 
 export type NotBurnAfterReadNoteUpdateData = {
   handler: NoteHandler
-  controlValue?: NoteControlValue
+  controlValue: NoteControlValue
   newVersion: NoteVersionRequest
+  burnAfterRead: false
   editable: boolean
 }
 
@@ -707,9 +705,9 @@ export type CreateNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateNoteRequestSchema = {
   encryptedText: NoteEncryptedText
-  scope?: NoteScope
-  controlValue?: NoteControlValue
-  language?: NoteLanguage
+  scope: NoteScope
+  controlValue: NoteControlValue
+  language: NoteLanguage
   metadata: BurnAfterReadCreateNoteMetadata | NotBurnAfterReadCreateNoteMetadata
 }
 
@@ -731,7 +729,7 @@ export type DeleteNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteNoteRequestSchema = {
   handler: NoteHandler
-  controlValue?: NoteControlValue
+  controlValue: NoteControlValue
 }
 
 export type GetNote200ResponseSchema = {
@@ -756,7 +754,7 @@ export type GetNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetNoteRequestSchema = {
   handler: NoteHandler
-  controlValue?: NoteControlValue
+  controlValue: NoteControlValue
   confirmRead: boolean
 }
 
