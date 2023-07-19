@@ -525,6 +525,11 @@ export type UnexpectedErrorResponseSchema = {
 }
 
 /**
+ * millisecond
+ */
+export type Millisecond = number
+
+/**
  * timestamp
  */
 export type Timestamp = number
@@ -647,8 +652,7 @@ export type Note = {
 }
 
 export type BurnAfterReadCreateNoteMetadata = {
-  expireTimestamp: Timestamp
-  creationTimestamp: Timestamp
+  expireIn: Millisecond
   salt: NoteSalt
   email: NullableEmail
   encrypted: boolean
@@ -657,8 +661,7 @@ export type BurnAfterReadCreateNoteMetadata = {
 }
 
 export type NotBurnAfterReadCreateNoteMetadata = {
-  expireTimestamp: Timestamp
-  creationTimestamp: Timestamp
+  expireIn: Millisecond
   salt: NoteSalt
   email: NullableEmail
   encrypted: boolean
