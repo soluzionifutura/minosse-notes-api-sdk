@@ -648,7 +648,8 @@ export type Note = {
 }
 
 export type NoteResponse = {
-  handler: NoteHandler
+  id: NoteId
+  scope: NoteScope
   metadata: NoteMetadata
   content: NoteVersionResponse
 }
@@ -716,7 +717,7 @@ export type CreateNote429ResponseSchema = ThrottlingErrorResponseSchema
 export type CreateNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type CreateNoteRequestSchema = {
-  encryptedText: NoteEncryptedText
+  text: NoteEncryptedText
   scope: NoteScope
   controlValue: NoteControlValue
   language: NoteLanguage
@@ -740,7 +741,8 @@ export type DeleteNote429ResponseSchema = ThrottlingErrorResponseSchema
 export type DeleteNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteNoteRequestSchema = {
-  handler: NoteHandler
+  id: NoteId
+  scope: NoteScope
   controlValue: NoteControlValue
 }
 
@@ -765,7 +767,8 @@ export type GetNote429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetNoteRequestSchema = {
-  handler: NoteHandler
+  id: NoteId
+  scope: NoteScope
   controlValue: NoteControlValue
   confirmRead: boolean
 }
@@ -811,7 +814,8 @@ export type UpdateNote429ResponseSchema = ThrottlingErrorResponseSchema
 export type UpdateNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type UpdateNoteRequestSchema = {
-  handler: NoteHandler
+  id: NoteId
+  scope: NoteScope
   updates: {
     language?: string
     text?: string
