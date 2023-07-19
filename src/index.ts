@@ -636,7 +636,8 @@ export type NotBurnAfterReadNoteMetadata = {
 export type NoteMetadata = BurnAfterReadNoteMetadata | NotBurnAfterReadNoteMetadata
 
 export type NoteWithoutText = {
-  handler: NoteHandler
+  id: NoteId
+  scope: NoteScope
   metadata: NoteMetadata
 }
 
