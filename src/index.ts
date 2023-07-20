@@ -524,6 +524,8 @@ export type UnexpectedErrorResponseSchema = {
   [k: string]: unknown
 }
 
+export type WebSiteLink = string
+
 /**
  * timestamp
  */
@@ -636,7 +638,8 @@ export type NotBurnAfterReadNoteMetadata = {
 export type NoteMetadata = BurnAfterReadNoteMetadata | NotBurnAfterReadNoteMetadata
 
 export type NoteWithoutText = {
-  handler: NoteHandler
+  id: NoteId
+  scope: NoteScope
   metadata: NoteMetadata
 }
 
@@ -703,6 +706,7 @@ export type NoteResponseSchema = {
 export type CreateNote200ResponseSchema = {
   data: {
     note: NoteResponse
+    webSiteLink: WebSiteLink
   }
 }
 
@@ -749,6 +753,7 @@ export type DeleteNoteRequestSchema = {
 export type GetNote200ResponseSchema = {
   data: {
     note: NoteResponse | NoteWithoutText
+    webSiteLink: WebSiteLink
   }
 }
 
@@ -796,6 +801,7 @@ export type ListNotesRequestSchema = {
 export type UpdateNote200ResponseSchema = {
   data: {
     note: NoteResponse
+    webSiteLink: WebSiteLink
   }
 }
 
