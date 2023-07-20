@@ -234,7 +234,8 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
@@ -296,7 +297,8 @@ export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestC
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
@@ -412,7 +414,8 @@ export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRe
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
@@ -523,6 +526,8 @@ export type UnexpectedErrorResponseSchema = {
   stack?: string
   [k: string]: unknown
 }
+
+export type WebLink = string
 
 /**
  * timestamp
@@ -704,6 +709,7 @@ export type NoteResponseSchema = {
 export type CreateNote200ResponseSchema = {
   data: {
     note: NoteResponse
+    webLink: WebLink
   }
 }
 
@@ -729,7 +735,13 @@ export type DeleteNote200ResponseSchema = OkSchema
 
 export type DeleteNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type DeleteNote401ResponseSchema = UnauthorizedErrorResponseSchema
+export type DeleteNote401ResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
 
 export type DeleteNote404ResponseSchema = NotFindErrorResponseSchema
 
@@ -750,12 +762,19 @@ export type DeleteNoteRequestSchema = {
 export type GetNote200ResponseSchema = {
   data: {
     note: NoteResponse | NoteWithoutText
+    webLink: WebLink
   }
 }
 
 export type GetNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetNote401ResponseSchema = UnauthorizedErrorResponseSchema
+export type GetNote401ResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
 
 export type GetNote404ResponseSchema = NotFindErrorResponseSchema
 
@@ -797,12 +816,19 @@ export type ListNotesRequestSchema = {
 export type UpdateNote200ResponseSchema = {
   data: {
     note: NoteResponse
+    webLink: WebLink
   }
 }
 
 export type UpdateNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type UpdateNote401ResponseSchema = UnauthorizedErrorResponseSchema
+export type UpdateNote401ResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
 
 export type UpdateNote404ResponseSchema = NotFindErrorResponseSchema
 
