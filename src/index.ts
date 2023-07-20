@@ -234,7 +234,8 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
@@ -296,7 +297,8 @@ export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestC
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
@@ -412,7 +414,8 @@ export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRe
     },
     "401": {
       "code": [
-        "UNAUTHORIZED"
+        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
@@ -732,7 +735,13 @@ export type DeleteNote200ResponseSchema = OkSchema
 
 export type DeleteNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type DeleteNote401ResponseSchema = UnauthorizedErrorResponseSchema
+export type DeleteNote401ResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
 
 export type DeleteNote404ResponseSchema = NotFindErrorResponseSchema
 
@@ -759,7 +768,13 @@ export type GetNote200ResponseSchema = {
 
 export type GetNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetNote401ResponseSchema = UnauthorizedErrorResponseSchema
+export type GetNote401ResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
 
 export type GetNote404ResponseSchema = NotFindErrorResponseSchema
 
@@ -807,7 +822,13 @@ export type UpdateNote200ResponseSchema = {
 
 export type UpdateNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type UpdateNote401ResponseSchema = UnauthorizedErrorResponseSchema
+export type UpdateNote401ResponseSchema = {
+  message: string
+  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
+}
 
 export type UpdateNote404ResponseSchema = NotFindErrorResponseSchema
 
