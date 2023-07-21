@@ -218,7 +218,7 @@ export async function createNote(data: CreateNoteRequestSchema, config?: AxiosRe
 delete note
 */
 export type AxiosDeleteNoteSuccessResponse = (AxiosResponse<DeleteNote200ResponseSchema> & { status: 200 })
-export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/deleteNote" }
+export type AxiosDeleteNoteErrorResponse = ((AxiosResponse<DeleteNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<DeleteNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<DeleteNote403ResponseSchema> & { status: 403 }) | (AxiosResponse<DeleteNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<DeleteNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<DeleteNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<DeleteNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<DeleteNote500ResponseSchema> & { status: 500 })) & { path: "/v1/deleteNote" }
 export type AxiosDeleteNoteResponse = AxiosDeleteNoteSuccessResponse | AxiosDeleteNoteErrorResponse
 export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosDeleteNoteResponse> {
   _checkSetup()
@@ -234,12 +234,18 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
     },
     "401": {
       "code": [
-        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
+      ]
+    },
+    "403": {
+      "code": [
         "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
-      "code": null
+      "code": [
+        "NOTE_NOT_FOUND"
+      ]
     },
     "405": {
       "code": [
@@ -281,7 +287,7 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
 If control value matches, returns the note, otherwise returns metadata and handler
 */
 export type AxiosGetNoteSuccessResponse = (AxiosResponse<GetNote200ResponseSchema> & { status: 200 })
-export type AxiosGetNoteErrorResponse = ((AxiosResponse<GetNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNote500ResponseSchema> & { status: 500 })) & { path: "/v1/getNote" }
+export type AxiosGetNoteErrorResponse = ((AxiosResponse<GetNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<GetNote403ResponseSchema> & { status: 403 }) | (AxiosResponse<GetNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<GetNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetNote500ResponseSchema> & { status: 500 })) & { path: "/v1/getNote" }
 export type AxiosGetNoteResponse = AxiosGetNoteSuccessResponse | AxiosGetNoteErrorResponse
 export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetNoteResponse> {
   _checkSetup()
@@ -297,12 +303,18 @@ export async function getNote(data: GetNoteRequestSchema, config?: AxiosRequestC
     },
     "401": {
       "code": [
-        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
+      ]
+    },
+    "403": {
+      "code": [
         "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
-      "code": null
+      "code": [
+        "NOTE_NOT_FOUND"
+      ]
     },
     "405": {
       "code": [
@@ -398,7 +410,7 @@ export async function listNotes(data: ListNotesRequestSchema, config?: AxiosRequ
 update a note
 */
 export type AxiosUpdateNoteSuccessResponse = (AxiosResponse<UpdateNote200ResponseSchema> & { status: 200 })
-export type AxiosUpdateNoteErrorResponse = ((AxiosResponse<UpdateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<UpdateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/updateNote" }
+export type AxiosUpdateNoteErrorResponse = ((AxiosResponse<UpdateNote400ResponseSchema> & { status: 400 }) | (AxiosResponse<UpdateNote401ResponseSchema> & { status: 401 }) | (AxiosResponse<UpdateNote403ResponseSchema> & { status: 403 }) | (AxiosResponse<UpdateNote404ResponseSchema> & { status: 404 }) | (AxiosResponse<UpdateNote405ResponseSchema> & { status: 405 }) | (AxiosResponse<UpdateNote415ResponseSchema> & { status: 415 }) | (AxiosResponse<UpdateNote429ResponseSchema> & { status: 429 }) | (AxiosResponse<UpdateNote500ResponseSchema> & { status: 500 })) & { path: "/v1/updateNote" }
 export type AxiosUpdateNoteResponse = AxiosUpdateNoteSuccessResponse | AxiosUpdateNoteErrorResponse
 export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRequestConfig): Promise<AxiosUpdateNoteResponse> {
   _checkSetup()
@@ -414,12 +426,18 @@ export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRe
     },
     "401": {
       "code": [
-        "UNAUTHORIZED",
+        "WRONG_CONTROL_VALUE"
+      ]
+    },
+    "403": {
+      "code": [
         "WRONG_CONTROL_VALUE"
       ]
     },
     "404": {
-      "code": null
+      "code": [
+        "NOTE_NOT_FOUND"
+      ]
     },
     "405": {
       "code": [
@@ -532,184 +550,46 @@ export type WebLink = string
 /**
  * timestamp
  */
-export type Timestamp = number
+export type Timestamp = string
 
-export type NullableTimestamp = number | null
+export type NullableTimestamp = Timestamp | null
 
 export type Email = string
 
-export type NullableEmail = string | null
+export type NullableEmail = Email | null
 
-export type Week = number
-
-export type Year = number
-
-export type Month = number
-
-export type OkSchema = {
-  data: {
-    status: string
-  }
+export type OkResponseSchema = {
+  success: true
 }
 
-/**
- * UUID
- */
-export type Id = string
-
-export type NullableId = string | null
-
-export type NotFindErrorResponseSchema = {
-  data: {
-    status: string
-  }
+export type NotFoundErrorResponseSchema = {
+  message: string
+  code: "NOTE_NOT_FOUND"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
 }
 
-/**
- * Numeric note id
- */
-export type NoteId = string
-
-export type NoteScope = string | null
-
-/**
- * Contains optional scope and id
- */
-export type NoteHandler = {
-  id: NoteId
-  scope: NoteScope
+export type ControlValueRequiredErrorResponseSchema = {
+  message: string
+  code: "WRONG_CONTROL_VALUE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
 }
 
-/**
- * Random string for hashing encryption key
- */
-export type NoteSalt = string
-
-/**
- * note content encrypted with encryption key
- */
-export type NoteEncryptedText = string
-
-/**
- * note content
- */
-export type NoteText = string
-
-export type NoteControlValue = string | null
-
-/**
- * Detected programming language in note
- */
-export type NoteLanguage = string
-
-export type NoteVersionRequest = {
-  noteEncryptedText?: NoteEncryptedText
-  language?: NoteLanguage
-}
-
-export type NoteVersionResponse = {
-  encryptedText: NoteEncryptedText
-  creationTimestamp: NullableTimestamp
-  language: NoteLanguage
-}
-
-export type BurnAfterReadNoteMetadata = {
-  expireTimestamp: Timestamp
-  creationTimestamp: Timestamp
-  lastUpdateTimestamp: Timestamp
-  salt: NoteSalt
-  notificationEmail: NullableEmail
-  encrypted: boolean
-  burnAfterRead: true
-  editable: false
-}
-
-export type NotBurnAfterReadNoteMetadata = {
-  expireTimestamp: Timestamp
-  creationTimestamp: Timestamp
-  lastUpdateTimestamp: Timestamp
-  salt: NoteSalt
-  notificationEmail: NullableEmail
-  encrypted: boolean
-  burnAfterRead: false
-  editable: boolean
-}
-
-/**
- * Additional informations about note
- */
-export type NoteMetadata = BurnAfterReadNoteMetadata | NotBurnAfterReadNoteMetadata
-
-export type NoteWithoutText = {
-  id: NoteId
-  scope: NoteScope
-  metadata: NoteMetadata
-}
-
-export type Note = {
-  handler: NoteHandler
-  metadata: NoteMetadata
-  controlValue: NoteControlValue
-  versions: NoteVersionResponse[]
-}
-
-export type NoteResponse = {
-  id: NoteId
-  scope: NoteScope
-  metadata: NoteMetadata
-  content: NoteVersionResponse
-}
-
-export type NoteRequest = {
-  handler: NoteHandler
-  metadata: NoteMetadata
-  content: NoteVersionRequest
-}
-
-export type BurnAfterReadCreateNoteMetadata = {
-  expireTimestamp: NullableTimestamp
-  salt: NoteSalt
-  notificationEmail: NullableEmail
-  encrypted: boolean
-  burnAfterRead: true
-  editable: false
-}
-
-export type NotBurnAfterReadCreateNoteMetadata = {
-  expireTimestamp: NullableTimestamp
-  salt: NoteSalt
-  notificationEmail: NullableEmail
-  encrypted: boolean
-  burnAfterRead: false
-  editable: boolean
-}
-
-export type BurnAfterReadNoteUpdateData = {
-  handler: NoteHandler
-  controlValue: NoteControlValue
-  newVersion: NoteVersionRequest
-  burnAfterRead: true
-  editable: false
-}
-
-export type NotBurnAfterReadNoteUpdateData = {
-  handler: NoteHandler
-  controlValue: NoteControlValue
-  newVersion: NoteVersionRequest
-  burnAfterRead: false
-  editable: boolean
-}
-
-export type NoteResponseSchema = {
-  data: {
-    note: Note
-  }
+export type WrongControlValueErrorResponseSchema = {
+  message: string
+  code: "WRONG_CONTROL_VALUE"
+  details?: Any
+  stack?: string
+  [k: string]: unknown
 }
 
 export type CreateNote200ResponseSchema = {
   data: {
-    note: NoteResponse
-    webLink: WebLink
+    note: PartialNote
+    webLink: string
   }
 }
 
@@ -723,27 +603,41 @@ export type CreateNote429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type CreateNote500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type CreateNoteRequestSchema = {
-  text: NoteEncryptedText
-  scope: NoteScope
-  controlValue: NoteControlValue
-  language: NoteLanguage
-  metadata: BurnAfterReadCreateNoteMetadata | NotBurnAfterReadCreateNoteMetadata
-}
+export type CreateNoteRequestSchema =
+  | {
+      scope: string | null
+      value: string
+      editable: boolean
+      burnAfterRead: boolean
+      expireTimestamp: NullableTimestamp
+      notificationEmail: Email | null
+      language: NoteLanguage | null
+      encrypted: true
+      salt: string
+      controlValue: string
+    }
+  | {
+      scope: string | null
+      value: string
+      editable: boolean
+      burnAfterRead: boolean
+      expireTimestamp: NullableTimestamp
+      notificationEmail: Email | null
+      language: NoteLanguage | null
+      encrypted: false
+      salt: null
+      controlValue: null
+    }
 
-export type DeleteNote200ResponseSchema = OkSchema
+export type DeleteNote200ResponseSchema = OkResponseSchema
 
 export type DeleteNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type DeleteNote401ResponseSchema = {
-  message: string
-  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
+export type DeleteNote401ResponseSchema = ControlValueRequiredErrorResponseSchema
 
-export type DeleteNote404ResponseSchema = NotFindErrorResponseSchema
+export type DeleteNote403ResponseSchema = WrongControlValueErrorResponseSchema
+
+export type DeleteNote404ResponseSchema = NotFoundErrorResponseSchema
 
 export type DeleteNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -754,29 +648,27 @@ export type DeleteNote429ResponseSchema = ThrottlingErrorResponseSchema
 export type DeleteNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type DeleteNoteRequestSchema = {
-  id: NoteId
-  scope: NoteScope
-  controlValue: NoteControlValue
+  handler: {
+    id: NoteId
+    scope: string | null
+  }
+  controlValue: string
 }
 
 export type GetNote200ResponseSchema = {
   data: {
-    note: NoteResponse | NoteWithoutText
+    note: PartialNote | Note
     webLink: WebLink
   }
 }
 
 export type GetNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type GetNote401ResponseSchema = {
-  message: string
-  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
+export type GetNote401ResponseSchema = ControlValueRequiredErrorResponseSchema
 
-export type GetNote404ResponseSchema = NotFindErrorResponseSchema
+export type GetNote403ResponseSchema = WrongControlValueErrorResponseSchema
+
+export type GetNote404ResponseSchema = NotFoundErrorResponseSchema
 
 export type GetNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -787,15 +679,17 @@ export type GetNote429ResponseSchema = ThrottlingErrorResponseSchema
 export type GetNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type GetNoteRequestSchema = {
-  id: NoteId
-  scope: NoteScope
-  controlValue: NoteControlValue
+  handler: {
+    id: NoteId
+    scope: string | null
+  }
+  controlValue: string | null
   confirmRead: boolean
 }
 
 export type ListNotes200ResponseSchema = {
   data: {
-    notes: (NoteResponse | NoteWithoutText)[]
+    notes: (Note | PartialNote)[]
   }
 }
 
@@ -815,22 +709,18 @@ export type ListNotesRequestSchema = {
 
 export type UpdateNote200ResponseSchema = {
   data: {
-    note: NoteResponse
+    note: PartialNote
     webLink: WebLink
   }
 }
 
 export type UpdateNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type UpdateNote401ResponseSchema = {
-  message: string
-  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
+export type UpdateNote401ResponseSchema = ControlValueRequiredErrorResponseSchema
 
-export type UpdateNote404ResponseSchema = NotFindErrorResponseSchema
+export type UpdateNote403ResponseSchema = WrongControlValueErrorResponseSchema
+
+export type UpdateNote404ResponseSchema = NotFoundErrorResponseSchema
 
 export type UpdateNote405ResponseSchema = MethodNotAllowedErrorResponseSchema
 
@@ -841,11 +731,43 @@ export type UpdateNote429ResponseSchema = ThrottlingErrorResponseSchema
 export type UpdateNote500ResponseSchema = UnexpectedErrorResponseSchema
 
 export type UpdateNoteRequestSchema = {
-  id: NoteId
-  scope: NoteScope
+  handler: {
+    id: NoteId
+    scope: string | null
+  }
   updates: {
     language?: string
     text?: string
   }
-  controlValue: NoteControlValue
+  controlValue: string | null
+}
+
+export type NoteLanguage = string
+
+export type NoteId = string
+
+export type PartialNote = {
+  id: NoteId
+  scope: string
+  salt: string
+  encrypted: boolean
+  burnAfterRead: boolean
+  partial: true
+}
+
+export type Note = {
+  id: NoteId
+  scope: string
+  salt: string
+  encrypted: boolean
+  burnAfterRead: boolean
+  partial: false
+  expireTimestamp: NullableTimestamp
+  creationTimestamp: Timestamp
+  lastUpdateTimestamp: Timestamp
+  lastReadTimestamp?: NullableTimestamp
+  notificationEmail: NullableEmail
+  editable: boolean
+  language: NoteLanguage
+  value: string
 }
