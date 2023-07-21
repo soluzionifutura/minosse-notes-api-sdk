@@ -233,10 +233,7 @@ export async function deleteNote(data: DeleteNoteRequestSchema, config?: AxiosRe
       ]
     },
     "401": {
-      "code": [
-        "UNAUTHORIZED",
-        "WRONG_CONTROL_VALUE"
-      ]
+      "code": null
     },
     "404": {
       "code": null
@@ -546,18 +543,30 @@ export type Year = number
 
 export type Month = number
 
-export type OkSchema = {
-  data: {
-    status: string
-  }
-}
-
 /**
  * UUID
  */
 export type Id = string
 
 export type NullableId = string | null
+
+export type OkSchema = {
+  data: {
+    status: string
+  }
+}
+
+export type NotFoundSchema = {
+  data: {
+    status: string
+  }
+}
+
+export type NotAuthorizedSchema = {
+  data: {
+    status: string
+  }
+}
 
 export type NotFindErrorResponseSchema = {
   data: {
@@ -735,13 +744,7 @@ export type DeleteNote200ResponseSchema = OkSchema
 
 export type DeleteNote400ResponseSchema = ValidationErrorResponseSchema
 
-export type DeleteNote401ResponseSchema = {
-  message: string
-  code: "UNAUTHORIZED" | "WRONG_CONTROL_VALUE"
-  details?: Any
-  stack?: string
-  [k: string]: unknown
-}
+export type DeleteNote401ResponseSchema = NotAuthorizedSchema
 
 export type DeleteNote404ResponseSchema = NotFindErrorResponseSchema
 
