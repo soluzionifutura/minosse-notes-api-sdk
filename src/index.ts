@@ -737,7 +737,7 @@ export type UpdateNoteRequestSchema = {
   }
   updates: {
     language?: string
-    text?: string
+    value?: string
   }
   controlValue: string | null
 }
