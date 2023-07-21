@@ -652,7 +652,7 @@ export type DeleteNoteRequestSchema = {
     id: NoteId
     scope: string | null
   }
-  controlValue: string
+  controlValue: string | null
 }
 
 export type GetNote200ResponseSchema = {
