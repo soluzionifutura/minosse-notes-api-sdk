@@ -481,7 +481,7 @@ Get model for language detection
 export type AxiosGetModelSuccessResponse = (AxiosResponse<GetModel200ResponseSchema> & { status: 200 })
 export type AxiosGetModelErrorResponse = ((AxiosResponse<GetModel400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetModel405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetModel415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetModel429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetModel500ResponseSchema> & { status: 500 })) & { path: "/v1/getModel" }
 export type AxiosGetModelResponse = AxiosGetModelSuccessResponse | AxiosGetModelErrorResponse
-export async function getModel(data: GetModelRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetModelResponse> {
+export async function getModel(config?: AxiosRequestConfig): Promise<AxiosGetModelResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -515,7 +515,7 @@ export async function getModel(data: GetModelRequestSchema, config?: AxiosReques
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/getModel"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/getModel"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosGetModelSuccessResponse
   } catch (e) {
@@ -535,7 +535,7 @@ Get weights for language detection
 export type AxiosGetWeightsSuccessResponse = (AxiosResponse<GetWeights200ResponseSchema> & { status: 200 })
 export type AxiosGetWeightsErrorResponse = ((AxiosResponse<GetWeights400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetWeights405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetWeights415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetWeights429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetWeights500ResponseSchema> & { status: 500 })) & { path: "/v1/getWeights" }
 export type AxiosGetWeightsResponse = AxiosGetWeightsSuccessResponse | AxiosGetWeightsErrorResponse
-export async function getWeights(data: GetWeightsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetWeightsResponse> {
+export async function getWeights(config?: AxiosRequestConfig): Promise<AxiosGetWeightsResponse> {
   _checkSetup()
   const securityParams: AxiosRequestConfig = {}
   const handledResponses = {
@@ -569,7 +569,7 @@ export async function getWeights(data: GetWeightsRequestSchema, config?: AxiosRe
     }
   }
   try {
-    const res = await axios!.post(_getFnUrl("/v1/getWeights"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    const res = await axios!.post(_getFnUrl("/v1/getWeights"), null, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
     _throwOnUnexpectedResponse(handledResponses, res)
     return res as AxiosGetWeightsSuccessResponse
   } catch (e) {
@@ -897,10 +897,6 @@ export type GetModel429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type GetModel500ResponseSchema = UnexpectedErrorResponseSchema
 
-export type GetModelRequestSchema = {
-  [k: string]: unknown
-}
-
 export type GetWeights200ResponseSchema = {
   data: {
     languageWeights: string
@@ -917,7 +913,3 @@ export type GetWeights415ResponseSchema = UnsupportedMediaTypeErrorResponseSchem
 export type GetWeights429ResponseSchema = ThrottlingErrorResponseSchema
 
 export type GetWeights500ResponseSchema = UnexpectedErrorResponseSchema
-
-export type GetWeightsRequestSchema = {
-  [k: string]: unknown
-}
