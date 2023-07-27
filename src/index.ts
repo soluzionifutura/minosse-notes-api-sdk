@@ -475,6 +475,114 @@ export async function updateNote(data: UpdateNoteRequestSchema, config?: AxiosRe
   }
 }
 
+/**
+Get model for language detection
+*/
+export type AxiosGetModelSuccessResponse = (AxiosResponse<GetModel200ResponseSchema> & { status: 200 })
+export type AxiosGetModelErrorResponse = ((AxiosResponse<GetModel400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetModel405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetModel415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetModel429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetModel500ResponseSchema> & { status: 500 })) & { path: "/v1/getModel" }
+export type AxiosGetModelResponse = AxiosGetModelSuccessResponse | AxiosGetModelErrorResponse
+export async function getModel(data: GetModelRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetModelResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/getModel"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetModelSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetModelErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
+Get weights for language detection
+*/
+export type AxiosGetWeightsSuccessResponse = (AxiosResponse<GetWeights200ResponseSchema> & { status: 200 })
+export type AxiosGetWeightsErrorResponse = ((AxiosResponse<GetWeights400ResponseSchema> & { status: 400 }) | (AxiosResponse<GetWeights405ResponseSchema> & { status: 405 }) | (AxiosResponse<GetWeights415ResponseSchema> & { status: 415 }) | (AxiosResponse<GetWeights429ResponseSchema> & { status: 429 }) | (AxiosResponse<GetWeights500ResponseSchema> & { status: 500 })) & { path: "/v1/getWeights" }
+export type AxiosGetWeightsResponse = AxiosGetWeightsSuccessResponse | AxiosGetWeightsErrorResponse
+export async function getWeights(data: GetWeightsRequestSchema, config?: AxiosRequestConfig): Promise<AxiosGetWeightsResponse> {
+  _checkSetup()
+  const securityParams: AxiosRequestConfig = {}
+  const handledResponses = {
+    "200": {
+      "code": null
+    },
+    "400": {
+      "code": [
+        "VALIDATION_ERROR"
+      ]
+    },
+    "405": {
+      "code": [
+        "METHOD_NOT_ALLOWED"
+      ]
+    },
+    "415": {
+      "code": [
+        "UNSUPPORTED_MEDIA_TYPE"
+      ]
+    },
+    "429": {
+      "code": [
+        "THROTTLING"
+      ]
+    },
+    "500": {
+      "code": [
+        "UNEXPECTED_ERROR"
+      ]
+    }
+  }
+  try {
+    const res = await axios!.post(_getFnUrl("/v1/getWeights"), data, config ? deepmerge(securityParams, config, { isMergeableObject: isPlainObject }) : securityParams)
+    _throwOnUnexpectedResponse(handledResponses, res)
+    return res as AxiosGetWeightsSuccessResponse
+  } catch (e) {
+    const { response: res } = e as AxiosError
+    if (res) {
+      _throwOnUnexpectedResponse(handledResponses, res)
+      return res as AxiosGetWeightsErrorResponse
+    } else {
+      throw e
+    }
+  }
+}
+
 export type Any =
   | string
   | boolean
@@ -770,4 +878,46 @@ export type Note = {
   editable: boolean
   language: NoteLanguage
   value: string
+}
+
+export type GetModel200ResponseSchema = {
+  data: {
+    languageModel: string
+    [k: string]: unknown
+  }
+}
+
+export type GetModel400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetModel405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetModel415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetModel429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetModel500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetModelRequestSchema = {
+  [k: string]: unknown
+}
+
+export type GetWeights200ResponseSchema = {
+  data: {
+    languageWeights: string
+    [k: string]: unknown
+  }
+}
+
+export type GetWeights400ResponseSchema = ValidationErrorResponseSchema
+
+export type GetWeights405ResponseSchema = MethodNotAllowedErrorResponseSchema
+
+export type GetWeights415ResponseSchema = UnsupportedMediaTypeErrorResponseSchema
+
+export type GetWeights429ResponseSchema = ThrottlingErrorResponseSchema
+
+export type GetWeights500ResponseSchema = UnexpectedErrorResponseSchema
+
+export type GetWeightsRequestSchema = {
+  [k: string]: unknown
 }
